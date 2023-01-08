@@ -1,2 +1,2 @@
-# Hacking-with-SwiftUI
-Full course provided by Paul Hudson and available on https://www.hackingwithswift.com/100/swiftui
+# WeSplit
+Simple app allowing to split check between people, including the tip, final amount and final amount per person. Written in SwiftUI.
