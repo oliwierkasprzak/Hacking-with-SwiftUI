@@ -14,6 +14,10 @@ struct ContentView: View {
         }
         .padding()
     }
+    
+    func save() {
+        
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
