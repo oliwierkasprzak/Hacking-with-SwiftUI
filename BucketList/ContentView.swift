@@ -9,34 +9,66 @@ import LocalAuthentication
 import SwiftUI
 
 struct ContentView: View {
-    @State private var isUnlocked = false
+
+    @State private var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 50, longitude: 0), span: MKCoordinateSpan(latitudeDelta: 25, longitudeDelta: 25))
+    @State private var locations = [Location]()
+    
+    @State private var showingPlace: Location?
     var body: some View {
-        VStack {
-            if isUnlocked {
-                Text("Unlocked")
-            } else {
-                Text("Locked")
-            }
-        }
-        .onAppear(perform: authenticate)
-    }
-    func authenticate() {
-        let context = LAContext()
-        var error: NSError?
-        
-        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-            let reason = "We need to access your data"
-            
-            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
-                
-                if success {
-                    isUnlocked = true
-                } else {
-                    
+        ZStack {
+            Map(coordinateRegion: $mapRegion, annotationItems: locations) { location in
+                MapAnnotation(coordinate: location.coordinates) {
+                    VStack {
+                        Image(systemName: "star.circle")
+                            .resizable()
+                            .foregroundColor(.red)
+                            .frame(width: 44, height: 44)
+                            .background(.white)
+                            .clipShape(Circle())
+                            .onTapGesture {
+                                showingPlace = location
+                            }
+                        
+                        Text(location.name)
+                            .fixedSize()
+                    }
                 }
             }
-        } else {
+                .ignoresSafeArea()
             
+            Circle()
+                .fill(.blue)
+                .opacity(0.3)
+                .frame(width: 32, height: 32)
+            
+            VStack {
+                Spacer()
+                
+                HStack {
+                    Spacer()
+                    
+                    Button {
+                        let newLocation = Location(id: UUID(), name: "New location", description: "", longitude: mapRegion.center.longitude, latitude: mapRegion.center.latitude)
+                        locations.append(newLocation)
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                    .padding()
+                    .background(.black.opacity(0.75))
+                    .foregroundColor(.white)
+                    .font(.title)
+                    .clipShape(Circle())
+                    .padding(.trailing)
+                }
+            }
+        }
+        .sheet(item: $showingPlace) { place in
+            EditView(location: place) { newLocation in
+                if let index = locations.firstIndex(of: place) {
+                        locations[index] = newLocation
+                    }
+            }
+
         }
     }
 }
