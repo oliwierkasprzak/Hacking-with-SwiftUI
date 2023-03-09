@@ -5,10 +5,11 @@
 //  Created by Oliwier Kasprzak on 07/03/2023.
 //
 
-import MapKit
+import LocalAuthentication
 import SwiftUI
 
 struct ContentView: View {
+
     @State private var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 50, longitude: 0), span: MKCoordinateSpan(latitudeDelta: 25, longitudeDelta: 25))
     @State private var locations = [Location]()
     
@@ -67,9 +68,12 @@ struct ContentView: View {
                         locations[index] = newLocation
                     }
             }
+
         }
     }
 }
+
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
