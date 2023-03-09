@@ -7,28 +7,66 @@
 
 import MapKit
 import SwiftUI
-struct Location: Identifiable {
-    let id = UUID()
-    let name: String
-    let coordinate: CLLocationCoordinate2D
-}
+
 struct ContentView: View {
-    @State private var cordinateRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.12, longitude: -0.12), span: MKCoordinateSpan(latitudeDelta: 0.9, longitudeDelta: 0.9))
+    @State private var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 50, longitude: 0), span: MKCoordinateSpan(latitudeDelta: 25, longitudeDelta: 25))
+    @State private var locations = [Location]()
     
-    let locations = [
-        Location(name: "Buckingham Palace", coordinate: CLLocationCoordinate2D(latitude: 51.501, longitude: -0.141)),
-        Location(name: "Tower of London", coordinate: CLLocationCoordinate2D(latitude: 51.508, longitude: -0.076))
-    ]
+    @State private var showingPlace: Location?
     var body: some View {
-        Map(coordinateRegion: $cordinateRegion, annotationItems: locations) { location in
-            MapAnnotation(coordinate: location.coordinate) {
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(.red)
-                    .onTapGesture {
-                        print("hello")
+        ZStack {
+            Map(coordinateRegion: $mapRegion, annotationItems: locations) { location in
+                MapAnnotation(coordinate: location.coordinates) {
+                    VStack {
+                        Image(systemName: "star.circle")
+                            .resizable()
+                            .foregroundColor(.red)
+                            .frame(width: 44, height: 44)
+                            .background(.white)
+                            .clipShape(Circle())
+                            .onTapGesture {
+                                showingPlace = location
+                            }
+                        
+                        Text(location.name)
+                            .fixedSize()
+                    }
+                }
+            }
+                .ignoresSafeArea()
+            
+            Circle()
+                .fill(.blue)
+                .opacity(0.3)
+                .frame(width: 32, height: 32)
+            
+            VStack {
+                Spacer()
+                
+                HStack {
+                    Spacer()
+                    
+                    Button {
+                        let newLocation = Location(id: UUID(), name: "New location", description: "", longitude: mapRegion.center.longitude, latitude: mapRegion.center.latitude)
+                        locations.append(newLocation)
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                    .padding()
+                    .background(.black.opacity(0.75))
+                    .foregroundColor(.white)
+                    .font(.title)
+                    .clipShape(Circle())
+                    .padding(.trailing)
+                }
+            }
+        }
+        .sheet(item: $showingPlace) { place in
+            EditView(location: place) { newLocation in
+                if let index = locations.firstIndex(of: place) {
+                        locations[index] = newLocation
                     }
             }
-                
         }
     }
 }
