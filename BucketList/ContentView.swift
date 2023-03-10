@@ -5,7 +5,7 @@
 //  Created by Oliwier Kasprzak on 07/03/2023.
 //
 
-import LocalAuthentication
+import MapKit
 import SwiftUI
 
 struct ContentView: View {
@@ -29,12 +29,15 @@ struct ContentView: View {
                                 showingPlace = location
                             }
                         
-                        Text(location.name)
-                            .fixedSize()
+                        
                     }
+                    
+                    Text(location.name)
+                        .fixedSize()
                 }
+                
             }
-                .ignoresSafeArea()
+            .ignoresSafeArea()
             
             Circle()
                 .fill(.blue)
@@ -65,13 +68,13 @@ struct ContentView: View {
         .sheet(item: $showingPlace) { place in
             EditView(location: place) { newLocation in
                 if let index = locations.firstIndex(of: place) {
-                        locations[index] = newLocation
-                    }
+                    locations[index] = newLocation
+                }
             }
-
         }
     }
 }
+
 
 
 
