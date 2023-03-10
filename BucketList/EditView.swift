@@ -2,17 +2,18 @@
 //  EditView.swift
 //  BucketList
 //
-//  Created by Oliwier Kasprzak on 09/03/2023.
+//  Created by Oliwier Kasprzak on 10/03/2023.
 //
 
 import SwiftUI
 
 struct EditView: View {
     @Environment(\.dismiss) var dismiss
-    var location: Location
-    @State private var name = ""
-    @State private var description = ""
+    let location: Location
     var onSave: (Location) -> Void
+    
+    @State private var name: String
+    @State private var description: String
     
     var body: some View {
         NavigationView {
@@ -22,17 +23,14 @@ struct EditView: View {
                     TextField("Description", text: $description)
                 }
             }
-            .navigationTitle("Edit places")
             .toolbar {
                 Button("Save") {
-                   var newLocation = location
+                    var newLocation = location
                     newLocation.id = UUID()
-                   newLocation.name = name
-                   newLocation.description = description
-
-                   onSave(newLocation)
-                   dismiss()
-                   
+                    newLocation.name = name
+                    newLocation.description = description
+                    onSave(newLocation)
+                    dismiss()
                 }
             }
         }
@@ -41,7 +39,7 @@ struct EditView: View {
     init(location: Location, onSave: @escaping (Location) -> Void) {
         self.location = location
         self.onSave = onSave
-
+        
         _name = State(initialValue: location.name)
         _description = State(initialValue: location.description)
     }
