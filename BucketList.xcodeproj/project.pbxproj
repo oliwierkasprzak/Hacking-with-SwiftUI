@@ -12,7 +12,7 @@
 		4F43A06D29B7B3B50022BBED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F43A06C29B7B3B50022BBED /* Assets.xcassets */; };
 		4F43A07129B7B3B50022BBED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F43A07029B7B3B50022BBED /* Preview Assets.xcassets */; };
 		4F50392229BA5889005CBDBE /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F50392129BA5889005CBDBE /* Location.swift */; };
-		4F50392829BB89F5005CBDBE /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F50392729BB89F5005CBDBE /* EditView.swift */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +23,7 @@
 		4F43A06E29B7B3B50022BBED /* BucketList.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BucketList.entitlements; sourceTree = "<group>"; };
 		4F43A07029B7B3B50022BBED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4F50392129BA5889005CBDBE /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
-		4F50392729BB89F5005CBDBE /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +58,7 @@
 			children = (
 				4F43A06829B7B3B40022BBED /* BucketListApp.swift */,
 				4F43A06A29B7B3B40022BBED /* ContentView.swift */,
-				4F50392729BB89F5005CBDBE /* EditView.swift */,
+
 				4F50392129BA5889005CBDBE /* Location.swift */,
 				4F43A06C29B7B3B50022BBED /* Assets.xcassets */,
 				4F43A06E29B7B3B50022BBED /* BucketList.entitlements */,
@@ -149,6 +149,7 @@
 				4F50392229BA5889005CBDBE /* Location.swift in Sources */,
 				4F50392829BB89F5005CBDBE /* EditView.swift in Sources */,
 				4F43A06929B7B3B40022BBED /* BucketListApp.swift in Sources */,
+				4F50392A29BB98A5005CBDBE /* Results.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
