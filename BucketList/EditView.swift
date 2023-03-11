@@ -25,7 +25,7 @@ struct EditView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section() {
+                Section {
                     TextField("Place name", text: $name)
                     TextField("Description", text: $description)
                 }
