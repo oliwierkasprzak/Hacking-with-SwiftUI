@@ -12,6 +12,7 @@ struct ContentView: View {
 
     @StateObject private var viewModel = ViewModel()
     var body: some View {
+
         ZStack {
             Map(coordinateRegion: $viewModel.mapRegion, annotationItems: viewModel.locations) { location in
                 MapAnnotation(coordinate: location.coordinates) {
@@ -27,44 +28,40 @@ struct ContentView: View {
                             }
                         
                         
+
                     }
                     
                     Text(location.name)
                         .fixedSize()
                 }
+
                 
-            }
-            .ignoresSafeArea()
-            
-            Circle()
-                .fill(.blue)
-                .opacity(0.3)
-                .frame(width: 32, height: 32)
-            
-            VStack {
-                Spacer()
+                Circle()
+                    .fill(.blue)
+                    .opacity(0.3)
+                    .frame(width: 32, height: 32)
                 
-                HStack {
+                VStack {
                     Spacer()
                     
-                    Button {
-                        viewModel.addLocation()
-                    } label: {
-                        Image(systemName: "plus")
+                    HStack {
+                        Spacer()
+                        
+                        Button {
+                            viewModel.addLocation()
+                        } label: {
+                            Image(systemName: "plus")
+                        }
+                        .padding()
+                        .background(.black.opacity(0.75))
+                        .foregroundColor(.white)
+                        .font(.title)
+                        .clipShape(Circle())
+                        .padding(.trailing)
                     }
-                    .padding()
-                    .background(.black.opacity(0.75))
-                    .foregroundColor(.white)
-                    .font(.title)
-                    .clipShape(Circle())
-                    .padding(.trailing)
                 }
             }
-        }
-        .sheet(item: $viewModel.showingPlace) { place in
-            EditView(location: place) { newLocation in
 
-            }
         }
     }
 }
