@@ -26,12 +26,15 @@ struct ContentView: View {
                                 viewModel.showingPlace = location
                             }
                         
-                        Text(location.name)
-                            .fixedSize()
+                        
                     }
+                    
+                    Text(location.name)
+                        .fixedSize()
                 }
+                
             }
-                .ignoresSafeArea()
+            .ignoresSafeArea()
             
             Circle()
                 .fill(.blue)
@@ -60,12 +63,12 @@ struct ContentView: View {
         }
         .sheet(item: $viewModel.showingPlace) { place in
             EditView(location: place) { newLocation in
-                viewModel.update(location: newLocation)
-            }
 
+            }
         }
     }
 }
+
 
 
 
