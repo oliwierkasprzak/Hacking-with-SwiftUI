@@ -20,14 +20,14 @@ struct EditView: View {
                 Section {
                     TextField("Place name", text: $name)
                     TextField("Description", text: $description)
-                }
-
-                Section {
+                    
+                    
+                    
                     switch loadingState {
                     case .loading:
                         Text("Loading…")
                     case .loaded:
-                        ForEach(pages, id: \.pageid) { page in
+                        ForEach(pages, id: \.pageId) { page in
                             Text(page.title)
                                 .font(.headline)
                             + Text(": ")
@@ -37,8 +37,6 @@ struct EditView: View {
                     case .failed:
                         Text("Please try again later.")
                     }
-                } header: {
-                    Text("Nearby...")
                 }
             }
 

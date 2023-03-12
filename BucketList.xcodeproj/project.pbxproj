@@ -146,6 +146,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F43A06B29B7B3B40022BBED /* ContentView.swift in Sources */,
+				4FA497BE29BE25360051B40A /* FileManager-DocumentsDirectory.swift in Sources */,
+				4FA497BC29BE220B0051B40A /* ContentView-ViewModel.swift in Sources */,
 				4F50392229BA5889005CBDBE /* Location.swift in Sources */,
 				4F50392829BB89F5005CBDBE /* EditView.swift in Sources */,
 				4F43A06929B7B3B40022BBED /* BucketListApp.swift in Sources */,

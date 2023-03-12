@@ -10,13 +10,10 @@ import SwiftUI
 
 struct ContentView: View {
 
-    @State private var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 50, longitude: 0), span: MKCoordinateSpan(latitudeDelta: 25, longitudeDelta: 25))
-    @State private var locations = [Location]()
-    
-    @State private var showingPlace: Location?
+    @StateObject private var viewModel = ViewModel()
     var body: some View {
         ZStack {
-            Map(coordinateRegion: $mapRegion, annotationItems: locations) { location in
+            Map(coordinateRegion: $viewModel.mapRegion, annotationItems: viewModel.locations) { location in
                 MapAnnotation(coordinate: location.coordinates) {
                     VStack {
                         Image(systemName: "star.circle")
@@ -26,7 +23,7 @@ struct ContentView: View {
                             .background(.white)
                             .clipShape(Circle())
                             .onTapGesture {
-                                showingPlace = location
+                                viewModel.showingPlace = location
                             }
                         
                         
@@ -51,8 +48,7 @@ struct ContentView: View {
                     Spacer()
                     
                     Button {
-                        let newLocation = Location(id: UUID(), name: "New location", description: "", longitude: mapRegion.center.longitude, latitude: mapRegion.center.latitude)
-                        locations.append(newLocation)
+                        viewModel.addLocation()
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -65,11 +61,9 @@ struct ContentView: View {
                 }
             }
         }
-        .sheet(item: $showingPlace) { place in
+        .sheet(item: $viewModel.showingPlace) { place in
             EditView(location: place) { newLocation in
-                if let index = locations.firstIndex(of: place) {
-                    locations[index] = newLocation
-                }
+
             }
         }
     }
