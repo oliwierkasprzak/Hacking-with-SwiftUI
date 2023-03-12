@@ -6,16 +6,19 @@
 //
 
 import Foundation
+import LocalAuthentication
 import MapKit
 
 extension ContentView {
    @MainActor class ViewModel: ObservableObject {
         @Published var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 50, longitude: 0), span: MKCoordinateSpan(latitudeDelta: 25, longitudeDelta: 25))
-       @Published private(set) var locations: [Location]
+        @Published private(set) var locations: [Location]
         
         @Published var showingPlace: Location?
        
-       let saveURL = FileManager.documentsDirectory.appendingPathComponent("SavedPlaces")
+        let saveURL = FileManager.documentsDirectory.appendingPathComponent("SavedPlaces")
+       
+       @Published var isUnlocked = false
        
        init() {
            do {
@@ -47,6 +50,25 @@ extension ContentView {
                try data.write(to: saveURL, options: [.atomic, .completeFileProtection])
            } catch {
                print("Failed to save")
+           }
+       }
+       
+       func authenticate() {
+           let context = LAContext()
+           var error: NSError?
+           
+           if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+               let reason = "Please authorize to show your places."
+               
+               context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticateError in
+                   if success {
+                       Task { @MainActor in
+                           self.isUnlocked = true
+                       }
+                   } else {
+                       
+                   }
+               }
            }
        }
     }
