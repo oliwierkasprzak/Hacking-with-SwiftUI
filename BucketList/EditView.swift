@@ -2,7 +2,7 @@
 //  EditView.swift
 //  BucketList
 //
-//  Created by Oliwier Kasprzak on 09/03/2023.
+//  Created by Oliwier Kasprzak on 10/03/2023.
 //
 
 import SwiftUI
@@ -14,7 +14,7 @@ struct EditView: View {
     }
 
     @Environment(\.dismiss) var dismiss
-    var onSave: (Location) -> Void
+
 
     var body: some View {
         NavigationView {
@@ -41,8 +41,7 @@ struct EditView: View {
                     }
                 }
             }
-            
-            .navigationTitle("Place details")
+
             .toolbar {
                 Button("Save") {
                     var newLocation = viewModel.location
@@ -65,8 +64,6 @@ struct EditView: View {
         self.viewModel.location = location
         self.onSave = onSave
 
-        _viewModel.name = State(initialValue: location.viewModel.name)
-        _viewModel.description = State(initialValue: location.viewModel.description)
     }
 
     func fetchNearbyPlaces() async {
