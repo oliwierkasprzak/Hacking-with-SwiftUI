@@ -18,7 +18,9 @@ extension ContentView {
        
         let saveURL = FileManager.documentsDirectory.appendingPathComponent("SavedPlaces")
        
-       @Published var isUnlocked = false
+        @Published var isUnlocked = false
+       
+        @Published var showingAuthenticationError = false
        
        init() {
            do {
@@ -66,7 +68,10 @@ extension ContentView {
                            self.isUnlocked = true
                        }
                    } else {
-                       
+                       Task { @MainActor in
+                           self.showingAuthenticationError = true
+                       }
+                       print("Failed to authenticate")
                    }
                }
            }
