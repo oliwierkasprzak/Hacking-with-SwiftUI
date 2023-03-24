@@ -16,15 +16,12 @@ struct ContentView: View {
             Text("Hello, github!")
                 .padding()
             
-            Text("Testing before tomorrow")
-                .padding()
-                .ignoresSafeArea()
-                .background(.red)
-            
-            
         }
-        .padding()
+        
+        Text("Hello")
+            .padding()
     }
+        
 }
 
 struct ContentView_Previews: PreviewProvider {
