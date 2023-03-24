@@ -15,6 +15,13 @@ struct ContentView: View {
                 .foregroundColor(.accentColor)
             Text("Hello, github!")
                 .padding()
+            
+            Text("Testing before tomorrow")
+                .padding()
+                .ignoresSafeArea()
+                .background(.red)
+            
+            
         }
         .padding()
     }
